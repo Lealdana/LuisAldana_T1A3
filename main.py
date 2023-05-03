@@ -1,26 +1,53 @@
+# Added a Loading text when user decides to play
 import time
 
+# 3 Seconds for the timer
 wait_time = 3
 
 
-# Game Intro, user data
+# Ask for user data
 
 print("Welcome to the General knowledge Test Game!! ")
+
 user_name = input("Whats your name?: ")
 
-play = input("Hey " + user_name +
-             "! are you ready to start playing? \n Yes or No? ").lower()
-
-if play != "yes":
-    exit()
-
-for i in range(wait_time):
-    print(f" Loading game.{'.'*i} \n -------------------  ")
-    time.sleep(1)
-
-print("Let's Go!! \n ------------------- \n but first you need to know the Rules \n -------------------\n If you want to exit the program, just write Exit \n To answer the questions just write either A, B, C or D.")
+# This function is to ask the user if they want to execute the game
 
 
+def user_confirmation():
+
+    play = ""
+
+    while True:
+        play = input("Hey " + user_name +
+                     "! are you ready to start playing? \n Yes or No? ").lower()
+        if play == "yes":
+            print(" ------------------- \n I knew it! \n  -------------------")
+            break
+        elif play == "no":
+            print("Good Bye see you next time!")
+            exit()
+        else:
+            print("Type Yes or No")
+
+
+user_confirmation()
+
+
+# Timer for the Loading text before playing
+def loading_game():
+
+    for i in range(wait_time):
+        print(f" Loading game.{'.'*i} \n -------------------  ")
+        time.sleep(1)
+
+
+loading_game()
+
+
+print("Let's Go!! \n ------------------- \n but first you need to know the Rules \n -------------------\n If you want to exit the program, just write Exit \n To answer the questions just write either A, B, C or D.\n")
+
+# Question in a Tuple
 questions = ("What is the name of the largest mammal in the world?: ",
 
              "What is the name of the famous dog from the comic strip 'Peanuts?': ",
@@ -35,6 +62,7 @@ questions = ("What is the name of the largest mammal in the world?: ",
 
              )
 
+# Answer choices for the Questions in a Tuple
 choices = (("A. Blue Whale ", "B. Elephant ", "C. Hippopotamus ", "D. Giraffe "),
            ("A. Garfield ", "B. Scooby-Doo ", "C. Snoopy ", "D. Pluto "),
            ("A. Venus ", "B. Mars ", "C. Saturn ", "D. Neptune "),
@@ -50,14 +78,15 @@ choices = (("A. Blue Whale ", "B. Elephant ", "C. Hippopotamus ", "D. Giraffe ")
            ("A. The Lion King ", "B. Finding Nemo ", "C. Toy Story ", "D. Shrek "),
            ("A. Bohemian Rhapsody ", "B. We Will Rock You ", "C. Don't Stop Me Now ", "D. Somebody To Love "))
 
+
 answers = ("A", "C", "B", "A", "D", "A", "D", "A", "B", "B")
 guesses = []
 score = 0
 question_num = 0
 
-
+# For loop to show Questions and Choices
 for question in questions:
-    print("<------------------>")
+    print("<------------------>\n")
     print(question)
     for choice in choices[question_num]:
         print(choice)
@@ -67,12 +96,23 @@ for question in questions:
     guesses.append(guess)
     if guess == answers[question_num]:
         score += 1
-        print("CORRECT!")
+        print("----CORRECT!----\n       | \n       | ")
     elif guess == "EXIT":
         exit()
     else:
-        print("Game Over")
-        print(f"{answers[question_num]} is the correct answer")
+        print("INCORRECT!\n Think before you answer lol ")
 
+    question_num += 1
 
-question_num = + 1
+print("answers: ", end="")
+for answer in answers:
+    print(answer, end=" ")
+print()
+
+print("guesses: ", end="")
+for guess in guesses:
+    print(guess, end=" ")
+print()
+
+score = int(score / len(questions) * 100)
+print(f"Your score is: {score}%")
