@@ -54,7 +54,7 @@ print("Let's Go!!")
 print(" ")
 print("But first you need to know the Rules\n")
 print("If you want to exit the program, just write -- Exit --\n")
-print("To answer the questions just type the answer\n")
+print("To answer the questions just type the answer ie. Whats the largest continent in the world? \n type: Africa \n")
 
 # Question, choices and answer in Dictionary
 questions = [
@@ -110,17 +110,24 @@ def ask_question():
         random.shuffle(question["choices"])
         for i, choice in enumerate(question["choices"]):
             print(f"{i + 1}. {choice}")
-        answer = input("Write your answer: ").lower()
 
         # check the answer and update the score
-        if answer == question["answer".lower()]:
-            print("Correct!")
-            score += 15
-        elif answer.lower() == "exit":
-            exit()
-        else:
-            print("Incorrect!\n")
-        print("")
+        while True:
+            answer = input("\nWrite your answer: ").lower()
+
+            if answer == question["answer".lower()]:
+                print("\nCorrect!\n")
+                score += 15
+                break
+            elif answer.lower() == "exit":
+                exit()
+            elif not answer.isalpha():
+                print("\nPlease, type a letter.\n")
+            else:
+                if answer.isalpha() and answer != question["answer".lower()]:
+                    print("\nIncorrect!\n")
+                    print("")
+                    break
 
 
 ask_question()
