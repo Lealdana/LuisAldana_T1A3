@@ -2,7 +2,8 @@
 import time
 import random
 import csv
-g
+import os
+
 
 # 3 Seconds for the timer
 wait_time = 3
@@ -60,30 +61,32 @@ questions = [
     {
         "question": "What is the capital of France?",
         "choices": ["Paris", "London", "Rome", "Madrid"],
-        "answer": "Paris"
+        "answer": "Paris".lower()
     },
     {
         "question": "Who is the author of 'The Catcher in the Rye'?",
         "choices": ["Ernest Hemingway", "J.D. Salinger", "F. Scott Fitzgerald", "Mark Twain"],
-        "answer": "J.D. Salinger"
+        "answer": "J.D. Salinger".lower()
     },
     {
         "question": "What is the largest continent in the world?",
         "choices": ["Africa", "Europe", "Asia", "North America"],
-        "answer": "Asia"
+        "answer": "Asia".lower()
     },
     {
         "question": "What is the chemical symbol for gold?",
         "choices": ["Go", "Gd", "Au", "Ag"],
-        "answer": "Au"
+        "answer": "Au".lower()
     },
     {
         "question": "What is the highest mountain in Africa?",
         "choices": ["Mount Everest", "Kilimanjaro", "Mount Fuji", "Mount McKinley"],
-        "answer": "Kilimanjaro"
+        "answer": "Kilimanjaro".lower()
     }
 ]
 
+
+# Randomize questions order
 random.shuffle(questions)
 
 score = 0
@@ -91,8 +94,6 @@ num_questions = len(questions)
 question_order = list(range(num_questions))
 random.shuffle(question_order)
 
-
-# For loop to show Questions and Choices
 
 # Function to call questions and answers
 
@@ -124,14 +125,67 @@ def ask_question():
 
 ask_question()
 
+# Save Score to a CSV file and view it
 
-# print("answers: ", end="")
-# for answer in answers:
-#     print(answer, end=" ")
-# print()
-# print("This were your answers!: ", end="")
-# for guess in guesses:
-#     print(guess, end=" ")
-# print()
 score = int(score / len(questions) * 100)
 print(f"Your score is: {score} You can do better than that!.")
+
+
+filename = "scores.csv"
+exists = os.path.isfile(filename)
+
+# Open CSV file, but if doesn't exist, creates it
+
+while True:
+    try:
+        save_score = input(
+            "Do you want to save your score? (yes or no): ").lower()
+        if save_score not in ["yes", "no"]:
+            raise ValueError
+        break
+    except ValueError:
+        print("Invalid input. Please enter either 'yes' or 'no'.")
+
+if save_score == "yes":
+    with open(filename, mode="a", newline="") as score_file:
+        fieldnames = ["name", "score"]
+        writer = csv.DictWriter(score_file, fieldnames=fieldnames)
+
+        if not exists:
+            writer.writeheader()
+
+        writer.writerow({"name": user_name, "score": score})
+
+# option to delete previous scores
+while True:
+    try:
+        delete_scores = input(
+            "Do you want to delete previous scores? (yes or no): ").lower()
+        if delete_scores not in ["yes", "no"]:
+            raise ValueError
+        break
+    except ValueError:
+        print("Invalid input. Please enter either 'yes' or 'no'.")
+
+if delete_scores == "yes":
+    with open(filename, mode="w", newline="") as score_file:
+        pass
+
+# Ask user to see previous score
+
+while True:
+    try:
+        show_previous_scores = input(
+            "Do you want to see previous scores? (yes or no): ").lower()
+        if show_previous_scores not in ["yes", "no"]:
+            raise ValueError
+        break
+    except ValueError:
+        print("Invalid input. Please enter either 'yes' or 'no'.")
+
+if show_previous_scores == "yes":
+    with open(filename, mode="r") as score_file:
+        reader = csv.DictReader(score_file)
+        print("Previous Scores:")
+        for row in reader:
+            print(f"{row['name']}: {row['score']}")
