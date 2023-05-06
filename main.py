@@ -1,60 +1,60 @@
 # Added a Loading text when user decides to play
 import time
 import random
-import csv
 import os
-
-
-# 3 Seconds for the timer
-wait_time = 3
+import csv
+from functions_a import score_menu, loading_game, user_confirmation, user_name
 
 
 # Ask for user data
 
-print("Welcome to the General knowledge Test Game!!\n")
-
-user_name = input("Whats your name?: ")
-
 # This function is to ask the user if they want to execute the game
 
 
-def user_confirmation():
+# def user_confirmation():
 
-    play = ""
+#     play = ""
 
-    while True:
-        play = input("Hey " + user_name +
-                     "! are you ready to start playing? \n \nType Yes or No?: \n").lower()
-        if play == "yes":
-            print(" ------------------- \n I knew it! \n  -------------------\n")
-            break
-        elif play == "no":
-            print("Good Bye see you next time!")
-            exit()
-        else:
-            print("Type Yes or No\n")
+#     while True:
+#         play = input("Hey " + user_name +
+#                      "! are you ready to start playing? \n \nType Yes or No?: \n").lower()
+#         if play == "yes":
+#             print(" ------------------- \n I knew it! \n  -------------------\n")
+#             break
+#         elif play == "no":
+#             print("Good Bye see you next time!")
+#             exit()
+#         else:
+#             print("Type Yes or No\n")
 
 
 user_confirmation()
 
 
 # Timer for the Loading text before playing
-def loading_game():
+# Variable for the timer
 
-    for i in range(wait_time):
-        print(f" Loading game.{'.'*i} \n -------------------  ")
-        time.sleep(1)
+# def loading_game():
+#     wait_time = 3
+#     for i in range(wait_time):
+#         print(f" Loading game.{'.'*i} \n -------------------  ")
+#         time.sleep(1)
 
 
 loading_game()
 
 # Introduction to the program
 
-print("Let's Go!!")
-print(" ")
-print("But first you need to know the Rules\n")
-print("If you want to exit the program, just write -- Exit --\n")
-print("To answer the questions just type the answer ie. Whats the largest continent in the world? \n type: Africa \n")
+print("""
+Let's Go!!
+
+But first you need to know the Rules
+
+If you want to exit the program, just write -- Exit --
+
+To answer the questions just type the answer ie. Whats the largest continent in the world?
+type: Africa
+""")
 
 # Question, choices and answer in Dictionary
 questions = [
@@ -65,8 +65,8 @@ questions = [
     },
     {
         "question": "Who is the author of 'The Catcher in the Rye'?",
-        "choices": ["Ernest Hemingway", "J.D. Salinger", "F. Scott Fitzgerald", "Mark Twain"],
-        "answer": "J.D. Salinger".lower()
+        "choices": ["Hemingway", "Salinger", "Fitzgerald", "Twain"],
+        "answer": "Salinger".lower()
     },
     {
         "question": "What is the largest continent in the world?",
@@ -89,6 +89,7 @@ questions = [
 # Randomize questions order
 random.shuffle(questions)
 
+# Some Variables
 score = 0
 num_questions = len(questions)
 question_order = list(range(num_questions))
@@ -96,7 +97,6 @@ random.shuffle(question_order)
 
 
 # Function to call questions and answers
-
 
 def ask_question():
     global score
@@ -121,10 +121,10 @@ def ask_question():
                 break
             elif answer.lower() == "exit":
                 exit()
-            elif not answer.isalpha():
+            elif answer.isdigit():
                 print("\nPlease, type a letter.\n")
             else:
-                if answer.isalpha() and answer != question["answer".lower()]:
+                if not answer.isdigit() and answer != question["answer".lower()]:
                     print("\nIncorrect!\n")
                     print("")
                     break
@@ -135,64 +135,103 @@ ask_question()
 # Save Score to a CSV file and view it
 
 score = int(score / len(questions) * 100)
-print(f"Your score is: {score} You can do better than that!.")
+print(f"Your score is: {score} You can do better than that!.\n")
 
 
 filename = "scores.csv"
 exists = os.path.isfile(filename)
 
+
 # Open CSV file, but if doesn't exist, creates it
 
-while True:
-    try:
-        save_score = input(
-            "Do you want to save your score? (yes or no): ").lower()
-        if save_score not in ["yes", "no"]:
-            raise ValueError
+view_score_menu = input(
+    "Do you want to see the score menu?\n Please type Yes or No?\n")
+
+
+# def score_menu():
+#     print("1. Enter 1 to save your score")
+#     print("2. Enter 2 show previous scores")
+#     print("3. Enter 3 to delete all previous scores")
+#     print("4. Enter 4 to Exit")
+#     choice = input("\nEnter a number for the corresponding action: \n")
+#     return choice
+
+
+def saving_score(filename):
+    while True:
+        try:
+            save_score = input(
+                "Do you want to save your score? (yes or no): \n").lower()
+            if save_score not in ["yes", "no"]:
+                raise ValueError
+            break
+        except ValueError:
+            print("Invalid input. Please enter either 'yes' or 'no'.\n")
+
+    if save_score == "yes":
+        with open(filename, mode="a", newline="") as score_file:
+            fieldnames = ["name", "score"]
+            writer = csv.DictWriter(score_file, fieldnames=fieldnames)
+            print("\nDone\n")
+
+            if not exists:
+                writer.writeheader()
+
+            writer.writerow({"name": user_name, "score": score})
+
+
+def view_previous_score(filename):
+    while True:
+        try:
+            show_previous_scores = input(
+                "Do you want to see previous scores? (yes or no): \n").lower()
+            if show_previous_scores not in ["yes", "no"]:
+                raise ValueError
+            break
+        except ValueError:
+            print("Invalid input. Please enter either 'yes' or 'no'.")
+
+    if show_previous_scores == "yes":
+        with open(filename, mode="r") as score_file:
+            reader = csv.DictReader(score_file)
+            print("Previous Scores:")
+            for row in reader:
+                print(f"{row['name']}: {row['score']}")
+
+
+def delete_score(filename):
+    while True:
+        try:
+            delete_scores = input(
+                "Do you want to delete previous scores? (yes or no): \n").lower()
+            if delete_scores not in ["yes", "no"]:
+                raise ValueError
+            break
+        except ValueError:
+            print("Invalid input. Please enter either 'yes' or 'no'.")
+
+    if delete_scores == "yes":
+        with open(filename, mode="w", newline="") as score_file:
+            writer = csv.writer(score_file)
+            writer.writerow(["name", "score"])
+            print("\nDone\n")
+
+
+user_choice = ""
+
+while user_choice != "4":
+    user_choice = score_menu()
+    if (user_choice == "1"):
+        saving_score(filename)
+    elif (user_choice == "2"):
+        view_previous_score(filename)
+    elif (user_choice == "3"):
+        delete_score(filename)
+    elif (user_choice == "4"):
         break
-    except ValueError:
-        print("Invalid input. Please enter either 'yes' or 'no'.")
+    else:
+        print("Invalid input. Please enter 1, 2, 3, or 4.\n")
+else:
+    print("You chose not to see the score menu.")
 
-if save_score == "yes":
-    with open(filename, mode="a", newline="") as score_file:
-        fieldnames = ["name", "score"]
-        writer = csv.DictWriter(score_file, fieldnames=fieldnames)
-
-        if not exists:
-            writer.writeheader()
-
-        writer.writerow({"name": user_name, "score": score})
-
-# option to delete previous scores
-while True:
-    try:
-        delete_scores = input(
-            "Do you want to delete previous scores? (yes or no): ").lower()
-        if delete_scores not in ["yes", "no"]:
-            raise ValueError
-        break
-    except ValueError:
-        print("Invalid input. Please enter either 'yes' or 'no'.")
-
-if delete_scores == "yes":
-    with open(filename, mode="w", newline="") as score_file:
-        pass
-
-# Ask user to see previous score
-
-while True:
-    try:
-        show_previous_scores = input(
-            "Do you want to see previous scores? (yes or no): ").lower()
-        if show_previous_scores not in ["yes", "no"]:
-            raise ValueError
-        break
-    except ValueError:
-        print("Invalid input. Please enter either 'yes' or 'no'.")
-
-if show_previous_scores == "yes":
-    with open(filename, mode="r") as score_file:
-        reader = csv.DictReader(score_file)
-        print("Previous Scores:")
-        for row in reader:
-            print(f"{row['name']}: {row['score']}")
+print("Thank you for playing with us!")
