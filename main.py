@@ -1,4 +1,4 @@
-# Added a Loading text when user decides to play
+from colored import fg, bg, attr
 import time
 import random
 import os
@@ -10,35 +10,10 @@ from functions_a import score_menu, loading_game, user_confirmation, user_name
 
 # This function is to ask the user if they want to execute the game
 
-
-# def user_confirmation():
-
-#     play = ""
-
-#     while True:
-#         play = input("Hey " + user_name +
-#                      "! are you ready to start playing? \n \nType Yes or No?: \n").lower()
-#         if play == "yes":
-#             print(" ------------------- \n I knew it! \n  -------------------\n")
-#             break
-#         elif play == "no":
-#             print("Good Bye see you next time!")
-#             exit()
-#         else:
-#             print("Type Yes or No\n")
-
-
 user_confirmation()
 
 
-# Timer for the Loading text before playing
-# Variable for the timer
-
-# def loading_game():
-#     wait_time = 3
-#     for i in range(wait_time):
-#         print(f" Loading game.{'.'*i} \n -------------------  ")
-#         time.sleep(1)
+# Function to simulate loading the game, using timer library
 
 
 loading_game()
@@ -137,24 +112,16 @@ ask_question()
 score = int(score / len(questions) * 100)
 print(f"Your score is: {score} You can do better than that!.\n")
 
-
+# CSV file
 filename = "scores.csv"
 exists = os.path.isfile(filename)
 
 
-# Open CSV file, but if doesn't exist, creates it
-
+# Variable to access a the score menu
 view_score_menu = input(
     "Do you want to see the score menu?\n Please type Yes or No?\n")
 
-
-# def score_menu():
-#     print("1. Enter 1 to save your score")
-#     print("2. Enter 2 show previous scores")
-#     print("3. Enter 3 to delete all previous scores")
-#     print("4. Enter 4 to Exit")
-#     choice = input("\nEnter a number for the corresponding action: \n")
-#     return choice
+# Function to save the user score
 
 
 def saving_score(filename):
@@ -179,6 +146,8 @@ def saving_score(filename):
 
             writer.writerow({"name": user_name, "score": score})
 
+# Function to view previous score
+
 
 def view_previous_score(filename):
     while True:
@@ -197,6 +166,8 @@ def view_previous_score(filename):
             print("Previous Scores:")
             for row in reader:
                 print(f"{row['name']}: {row['score']}")
+
+# Function to delete previous score
 
 
 def delete_score(filename):
@@ -218,6 +189,8 @@ def delete_score(filename):
 
 
 user_choice = ""
+
+# Loop to go trough the score menu function
 
 while user_choice != "4":
     user_choice = score_menu()
