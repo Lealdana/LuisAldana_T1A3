@@ -20,7 +20,7 @@ loading_game()
 
 # Introduction to the program
 
-print("""
+print(f"""{fg(1)}{bg(11)}
 Let's Go!!
 
 But first you need to know the Rules
@@ -28,7 +28,7 @@ But first you need to know the Rules
 If you want to exit the program, just write -- Exit --
 
 To answer the questions just type the answer ie. Whats the largest continent in the world?
-type: Africa
+type: Africa {attr('reset')}
 """)
 
 # Question, choices and answer in Dictionary
@@ -91,13 +91,13 @@ def ask_question():
             answer = input("\nWrite your answer: ").lower()
 
             if answer == question["answer".lower()]:
-                print("\nCorrect!\n")
+                print(f"{fg(2)}{bg(15)}\nCorrect!\n{attr('reset')}")
                 score += 15
                 break
             elif answer.lower() == "exit":
                 exit()
             elif answer.isdigit():
-                print("\nPlease, type a letter.\n")
+                print(f"{fg(2)}{bg(15)}\nPlease, type a letter.\n{attr('reset')}")
             else:
                 if not answer.isdigit() and answer != question["answer".lower()]:
                     print("\nIncorrect!\n")
@@ -110,7 +110,7 @@ ask_question()
 # Save Score to a CSV file and view it
 
 score = int(score / len(questions) * 100)
-print(f"Your score is: {score} You can do better than that!.\n")
+print(f"{fg(2)}{bg(15)}Your score is: {score} You can do better than that!.\n{attr('reset')}")
 
 # CSV file
 filename = "scores.csv"
@@ -118,8 +118,7 @@ exists = os.path.isfile(filename)
 
 
 # Variable to access a the score menu
-view_score_menu = input(
-    "Do you want to see the score menu?\n Please type Yes or No?\n")
+view_score_menu = input(f"{fg(15)}{bg(13)}Do you want to see the score menu?\n Please type Yes or No?{attr('reset')}\n")
 
 # Function to save the user score
 
@@ -139,7 +138,7 @@ def saving_score(filename):
         with open(filename, mode="a", newline="") as score_file:
             fieldnames = ["name", "score"]
             writer = csv.DictWriter(score_file, fieldnames=fieldnames)
-            print("\nDone\n")
+            print(f"{fg(7)}{bg(10)}\nDone{attr('reset')}\n")
 
             if not exists:
                 writer.writeheader()
@@ -185,7 +184,7 @@ def delete_score(filename):
         with open(filename, mode="w", newline="") as score_file:
             writer = csv.writer(score_file)
             writer.writerow(["name", "score"])
-            print("\nDone\n")
+            print(f"{fg(7)}{bg(10)}\nDone{attr('reset')}\n")
 
 
 user_choice = ""
