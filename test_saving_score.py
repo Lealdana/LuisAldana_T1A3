@@ -1,5 +1,8 @@
+# Import functions from main module
 from main import saving_score, user_name, score
 import pytest
+
+# Function to test the Saving_score function
 
 
 def test_saving_score(tmp_path):
