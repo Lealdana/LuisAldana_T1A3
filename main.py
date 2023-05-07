@@ -120,24 +120,23 @@ exists = os.path.isfile(filename)
 # Variable to access a the score menu
 
 
-while True: 
-    view_score_menu = input(f"{fg(15)}{bg(13)}Do you want to see the score menu?\n Please type Yes or No?{attr('reset')}\n").lower()
-    if view_score_menu  == "yes":
+while True:
+    view_score_menu = input(
+        f"{fg(15)}{bg(13)}Do you want to see the score menu?\n Please type Yes or No?{attr('reset')}\n").lower()
+    if view_score_menu == "yes":
         break
-    elif view_score_menu =="no":
+    elif view_score_menu == "no":
         print("Thank you for playing")
         exit()
     else:
         print("Invalid input, Type Yes or NO")
         continue
-        
-    
 
 
 # Function to save the user score
 
 
-def saving_score(filename):
+def saving_score(filename,):
     while True:
         try:
             save_score = input(
