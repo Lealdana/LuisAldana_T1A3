@@ -4,7 +4,7 @@
 
 ---
 
-    For troubleshooting my code and for ideas I used Stackoverflow and Edlessons, below you can find some helpful links.
+For troubleshooting my code and for ideas I used Stackoverflow and Edlessons, below you can find some helpful links.
 
 [Attribute-error](https://stackoverflow.com/questions/59762996/how-to-fix-attributeerror-partially-initialized-module)
 
@@ -18,11 +18,11 @@
 
 ---
 
-    I use PEP 8 to style my code
+I use PEP 8 to style my code
 
 ### Reference
 
-    Author: Guido van Rossum, Barry Warsaw, Nick Coghlan, 05-07-2001, updated: 01-08-2013. PEP 8 – Style Guide for Python Code. (https://peps.python.org/pep-0008/)
+Author: Guido van Rossum, Barry Warsaw, Nick Coghlan, 05-07-2001, updated: 01-08-2013. PEP 8 – Style Guide for Python Code. https://peps.python.org/pep-0008/
 
 ## About Terminal Application
 
@@ -30,7 +30,7 @@
 
 ### General Knowdlege Quiz Game
 
-    It is a game, designed to test your general knowledge in a fun and engaging way, also gives you the option to save your score, view previous score and delete scores.
+It is a game, designed to test your general knowledge in a fun and engaging way, also gives you the option to save your score, view previous score and delete scores.
 
 ### Features
 
@@ -60,14 +60,18 @@
 
 ---
 
-    To design my implementation plan I used [Trello](https://trello.com), which is a project management software.
+To design my implementation plan I used [Trello](https://trello.com), which is a project management software.
 
 ### Beginning of the journey
 
-[Trello](../docs/Trello-Todo_activities.png)
+![image](../docs/Trello-Todo_activities.png)
 
 ### Inside a Function task and mini tasks
 
-[Trello](../docs/Inside%20ask%20question%20function.png)
+![image](../docs/Inside%20ask%20question%20function.png)
 
-[Trello]
+![image](../docs/Inside%20loading%20game%20function.png)
+
+![image](../docs/inside%20add%20colored%20task.png)
+
+![image](../docs/All%20done%20and%20a%20blocker.png)
