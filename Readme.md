@@ -1,5 +1,15 @@
 # Luis Aldana T1A3 - Terminal Application
 
+## Link to my Public repository
+
+---
+
+https://github.com/Lealdana/terminal_app_CA
+
+## Link to my Video Presentation
+
+https://www.canva.com/design/DAFiPbHMcIA/ot99u-F6J2DvC98G1iRQkQ/watch?utm_content=DAFiPbHMcIA&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink
+
 ## Code reference
 
 ---

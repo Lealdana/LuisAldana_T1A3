@@ -60,7 +60,6 @@ questions = [
     }
 ]
 
-
 # Randomize questions order
 random.shuffle(questions)
 
@@ -106,8 +105,6 @@ def ask_question():
 
 
 ask_question()
-
-# Save Score to a CSV file and view it
 
 score = int(score / len(questions) * 100)
 print(f"{fg(2)}{bg(15)}Your score is: {score} You can do better than that!.\n{attr('reset')}")
