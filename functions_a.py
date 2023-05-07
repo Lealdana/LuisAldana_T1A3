@@ -1,4 +1,6 @@
+# Imported colored library and installed in Venv to add colour to the output
 from colored import fg, bg, attr
+# Import Time library to use it for the loading game function simulation
 import time
 welcome = print(
     f'{fg(1)}{bg(15)}Welcome to the General knowledge Test Game!!{attr("reset")}\n')

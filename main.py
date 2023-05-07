@@ -219,4 +219,4 @@ while user_choice != "4":
 else:
     print("You chose not to see the score menu.")
 
-print("Thank you for playing with us!
+print("Thank you for playing with us!")
